@@ -7,6 +7,7 @@ class DBHandler:
     @staticmethod
     def create_table() -> None:
         # create/connect to db
+        # TODO make it smarter ;-)
         conn1 = sqlite3.connect("Data_Staging_area.db")
         conn2 = sqlite3.connect("Data_Job_Skills.db")
         conn3 = sqlite3.connect("Job_Info.db")

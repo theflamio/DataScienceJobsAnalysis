@@ -1,24 +1,15 @@
-import os
-import sqlite3
+import Data_Job_Skills
 
 
 class DBHandler:
 
     @staticmethod
-    def create_table() -> None:
-        # create/connect to db
-        # TODO make it smarter ;-)
-        conn1 = sqlite3.connect("Data_Staging_area.db")
-        conn2 = sqlite3.connect("Data_Job_Skills.db")
-        conn3 = sqlite3.connect("Job_Info.db")
-
-        # Close our connection
-        conn1.close()
-        conn2.close()
-        conn3.close()
+    def create_tables() -> None:
+        Data_Job_Skills.DataJobsSkill.create_job_title_table()
 
     @staticmethod
     def delete_databases() -> None:
-        os.remove("Data_Staging_area.db")
-        os.remove("Data_Job_Skills.db")
-        os.remove("Job_Info.db")
+        Data_Job_Skills.DataJobsSkill.delete_databases()
+
+
+

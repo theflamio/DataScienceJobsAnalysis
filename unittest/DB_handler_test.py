@@ -2,7 +2,8 @@ import unittest
 import pathlib as pl
 import DB_handler as dbh
 
-# test 6
+# test 7
+# test 7
 
 class TestDBHandler(unittest.TestCase):
     def test_Database_is_created(self):

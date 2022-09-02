@@ -7,12 +7,22 @@ pipeline {
                 echo 'Building..'
             }
         }
-        stage('Unittest') {
+        stage('Unit test') {
             steps {
-                 withPythonEnv('python3') {
-                    sh 'pip install pytest'
-                    sh 'pytest DB_handler_test.py'
+                sh  '''
+                        python -m pytest --verbose --junit-xml reports/unit_tests.xml
+                    '''
+            }
+            post {
+                always {
+                    // Archive unit tests for the future
+                    junit allowEmptyResults: true, testResults: 'reports/unit_tests.xml'
                 }
+            }
+        }
+        stage('Static code analytics') {
+            steps {
+                echo 'Deploying....'
             }
         }
         stage('Deploy') {

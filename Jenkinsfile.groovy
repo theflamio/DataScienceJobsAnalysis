@@ -7,9 +7,12 @@ pipeline {
                 echo 'Building..'
             }
         }
-        stage('Test') {
+        stage('Unittest') {
             steps {
-                echo 'Testing..'
+                 withPythonEnv('python3') {
+                    sh 'pip install pytest'
+                    sh 'pytest DB_handler_test.py'
+                }
             }
         }
         stage('Deploy') {

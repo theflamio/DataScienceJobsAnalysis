@@ -23,8 +23,7 @@ strategy:
     Python37:
       python.version: '3.7'
 
-stages:
-  -stage: build
+steps:
   # Use a specific Python version
     task: UsePythonVersion@0
     inputs:
@@ -37,7 +36,6 @@ stages:
       pip install -r requirements.txt
     displayName: 'Install dependencies'
 
-  -stage: Static code analytics
   # Lint via flake8. flake8 has better discovery, so we can invoke it directly
   - script: |
       python -m pip install flake8
@@ -45,7 +43,6 @@ stages:
     displayName: "Linting: flake8"
     workingDirectory: $(System.DefaultWorkingDirectory)
 
-  -stage: Unit test
   # Run unittests
   - script: |
       pip install pytest pytest-azurepipelines

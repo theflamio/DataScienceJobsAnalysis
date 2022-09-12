@@ -33,5 +33,6 @@ steps:
 - script: |
     pip install pytest pytest-azurepipelines
     pytest
+    echo '$(System.DefaultWorkingDirectory)'
   displayName: 'run pytest'
-  workingDirectory: $(Pipeline.Workspace)
+  workingDirectory: $(System.DefaultWorkingDirectory)

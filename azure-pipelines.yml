@@ -33,4 +33,5 @@ steps:
 - script: |
     pip install pytest pytest-azurepipelines
     pytest
-  displayName: 'pytest'
+  displayName: 'run pytest'
+  workingDirectory: $(Pipeline.Workspace)

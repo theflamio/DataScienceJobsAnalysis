@@ -24,11 +24,11 @@ strategy:
       python.version: '3.7'
 
 steps:
-  # Use a specific Python version
+# Use a specific Python version
 - task: UsePythonVersion@0
-    inputs:
-      versionSpec: '$(python.version)'
-    displayName: 'Use Python $(python.version)'
+  inputs:
+    versionSpec: '$(python.version)'
+  displayName: 'Use Python $(python.version)'
 
 # Install some tools needed for build (flake8, etc)
 - script: |

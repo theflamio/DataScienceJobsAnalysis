@@ -1,40 +1,56 @@
-# Python package
-# Create and test a Python package on multiple Python versions.
-# Add steps that analyze code, save the dist with the build record, publish to a PyPI-compatible index, and more:
-# https://docs.microsoft.com/azure/devops/pipelines/languages/python
+# ##########
+#
+# A basic build against a single Python target
+#
+# The Azure Pipelines hierarchy goes [Pipeline] -> [Stages] -> [Jobs] -> [Steps]
+# We only have 1 Stage and 1 Job, so we're using the shortcut syntax that includes only the properties for a single Job
+#
+# ##########
 
+# We'll define some variables for later use
+variables:
+  pythonVersion: 3.7
+
+# Trigger only when simple_package or its build has been modified
 trigger:
-- main
+  branches:
+    include:
+      - "*"       # We're only uploading to build artifacts, so it's safe to trigger on a
 
+# Run on a Microsoft-hosted agent running Ubuntu-16.04
+# https://docs.microsoft.com/en-us/azure/devops/pipelines/agents/hosted?view=azure-devops
 pool:
   vmImage: ubuntu-latest
-strategy:
-  matrix:
-    Python36:
-      python.version: '3.6'
-    Python37:
-      python.version: '3.7'
 
-steps:
-- task: UsePythonVersion@0
-  inputs:
-    versionSpec: '$(python.version)'
-  displayName: 'Use Python $(python.version)'
+stages:
+  -stage: build
+  # Use a specific Python version
+  - task: UsePythonVersion@0
+    displayName: 'Use Python $(pythonVersion)'
+    inputs:
+      versionSpec: $(pythonVersion)
 
-- script: |
-    python -m pip install --upgrade pip
-    pip install -r requirements.txt
-  displayName: 'Install dependencies'
+  # Install some tools needed for build (flake8, etc)
+  - script: |
+      python -m pip install --upgrade pip
+      pip install -r requirements.txt
+    displayName: 'Install dependencies'
 
-- script: |
-    pip install pytest pytest-azurepipelines
-    pip install pytest-cov
-    pytest --doctest-modules --junitxml=junit/test-results.xml --cov=. --cov-report=xml
-  displayName: 'pytest'
-  workingDirectory: $(System.DefaultWorkingDirectory)
+  -stage: Static code analytics
+  # Lint via flake8. flake8 has better discovery, so we can invoke it directly
+  - script: |
+      python -m pip install flake8
+      flake8
+    displayName: "Linting: flake8"
+    workingDirectory: $(System.DefaultWorkingDirectory)
 
-- script: |
-    pip install pylint
-    pylint .
-  displayName: 'pylint static code analytics'
-  workingDirectory: $(System.DefaultWorkingDirectory)
+  -stage: Unit test
+  # Run unittests
+  - script: |
+      pip install pytest pytest-azurepipelines
+      pip install pytest-cov
+      pytest --doctest-modules --junitxml=junit/test-results.xml --cov=. --cov-report=xml
+    displayName: 'pytest'
+    workingDirectory: $(System.DefaultWorkingDirectory)
+
+

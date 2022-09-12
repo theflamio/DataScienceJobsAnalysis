@@ -7,29 +7,37 @@
 #
 # ##########
 
+# We'll define some variables for later use
+variables:
+  pythonVersion: 3.7
+<<<<<<< HEAD
+=======
+  srcDirectory: src/$(System.DefaultWorkingDirectory)
+  testsDirectory: tests/$(System.DefaultWorkingDirectory)
+>>>>>>> 7a0b69dae24209ebf1eb82de326d8d0df5672a1e
+
 # Trigger only when simple_package or its build has been modified
 trigger:
-- main
+  branches:
+    include:
+      - "*"       # We're only uploading to build artifacts, so it's safe to trigger on a
 
 # Run on a Microsoft-hosted agent running Ubuntu-16.04
 # https://docs.microsoft.com/en-us/azure/devops/pipelines/agents/hosted?view=azure-devops
 pool:
   vmImage: ubuntu-latest
 
-strategy:
-  matrix:
-    Python36:
-      python.version: '3.6'
-    Python37:
-      python.version: '3.7'
-
 stages:
   -stage: build
   # Use a specific Python version
-    task: UsePythonVersion@0
+  - task: UsePythonVersion@0
+    displayName: 'Use Python $(pythonVersion)'
     inputs:
-      versionSpec: '$(python.version)'
-    displayName: 'Use Python $(python.version)'
+<<<<<<< HEAD
+      versionSpec: $(pythonVersion)
+=======
+      versionSpec: '$(pythonVersion)'
+>>>>>>> 7a0b69dae24209ebf1eb82de326d8d0df5672a1e
 
   # Install some tools needed for build (flake8, etc)
   - script: |
@@ -43,7 +51,11 @@ stages:
       python -m pip install flake8
       flake8
     displayName: "Linting: flake8"
+<<<<<<< HEAD
     workingDirectory: $(System.DefaultWorkingDirectory)
+=======
+    workingDirectory: $(srcDirectory)
+>>>>>>> 7a0b69dae24209ebf1eb82de326d8d0df5672a1e
 
   -stage: Unit test
   # Run unittests
@@ -52,6 +64,10 @@ stages:
       pip install pytest-cov
       pytest --doctest-modules --junitxml=junit/test-results.xml --cov=. --cov-report=xml
     displayName: 'pytest'
+<<<<<<< HEAD
     workingDirectory: $(System.DefaultWorkingDirectory)
+=======
+    workingDirectory: $(testsDirectory)
+>>>>>>> 7a0b69dae24209ebf1eb82de326d8d0df5672a1e
 
 

@@ -1,4 +1,4 @@
-import Data_Job_Skills
+import Databases.Data_Job_Skills
 
 
 class DBHandler:

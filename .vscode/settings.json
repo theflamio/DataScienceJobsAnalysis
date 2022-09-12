@@ -1,5 +1,3 @@
 {
-    "python.analysis.extraPaths": [
-        "./Databases"
-    ]
+    "python.analysis.extraPaths": ["${workspaceFolder}/Databases/"]
 }

@@ -1,8 +1,9 @@
-import Databases.DB_handler as db
+from Databases.DB_handler import DBHandler
 
+#test
 
 if __name__ == '__main__':
-    db = db.DBHandler
+    db = DBHandler
     db.create_tables()
 
 

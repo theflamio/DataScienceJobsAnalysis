@@ -10,6 +10,3 @@ class DBHandler:
     @staticmethod
     def delete_databases() -> None:
         djs.DataJobsSkill.delete_databases()
-
-
-

@@ -23,35 +23,32 @@ strategy:
     Python37:
       python.version: '3.7'
 
-stages:
-  -stage: build
+steps:
   # Use a specific Python version
-    task: UsePythonVersion@0
+- task: UsePythonVersion@0
     inputs:
       versionSpec: '$(python.version)'
     displayName: 'Use Python $(python.version)'
 
-  # Install some tools needed for build (flake8, etc)
-  - script: |
-      python -m pip install --upgrade pip
-      pip install -r requirements.txt
-    displayName: 'Install dependencies'
+# Install some tools needed for build (flake8, etc)
+- script: |
+    python -m pip install --upgrade pip
+    pip install -r requirements.txt
+  displayName: 'Install dependencies'
 
-  -stage: Static code analytics
-  # Lint via flake8. flake8 has better discovery, so we can invoke it directly
-  - script: |
-      python -m pip install flake8
-      flake8
-    displayName: "Linting: flake8"
-    workingDirectory: $(System.DefaultWorkingDirectory)
+# Lint via flake8. flake8 has better discovery, so we can invoke it directly
+- script: |
+    python -m pip install flake8
+    flake8
+  displayName: "Linting: flake8"
+  workingDirectory: $(System.DefaultWorkingDirectory)
 
-  -stage: Unit test
-  # Run unittests
-  - script: |
-      pip install pytest pytest-azurepipelines
-      pip install pytest-cov
-      pytest --doctest-modules --junitxml=junit/test-results.xml --cov=. --cov-report=xml
-    displayName: 'pytest'
-    workingDirectory: $(System.DefaultWorkingDirectory)
+# Run unittests
+- script: |
+    pip install pytest pytest-azurepipelines
+    pip install pytest-cov
+    pytest --doctest-modules --junitxml=junit/test-results.xml --cov=. --cov-report=xml
+  displayName: 'pytest'
+  workingDirectory: $(System.DefaultWorkingDirectory)
 
 

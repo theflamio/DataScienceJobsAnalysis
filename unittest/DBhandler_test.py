@@ -1,6 +1,6 @@
 import unittest
 import pathlib as pl
-import DBhandler as dbh
+import dBhandler as dbh
 
 class TestDBHandler(unittest.TestCase):
     def test_Database_is_created(self):
@@ -14,7 +14,3 @@ class TestDBHandler(unittest.TestCase):
         test_dbh.delete_databases()
         path = pl.Path("Data_Job_Skills.db")
         self.assertEquals((str(path), path.is_file()), (str(path), False))
-
-
-if __name__ == '__main__':
-    unittest.main()

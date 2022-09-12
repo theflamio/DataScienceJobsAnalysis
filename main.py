@@ -1,4 +1,4 @@
-from Databases.DB_handler import DBHandler
+from databases.DB_handler import DBHandler
 
 #test
 

@@ -1,6 +1,6 @@
 import unittest
 import pathlib as pl
-import dBhandler as dbh
+import databases.dBhandler as dbh
 
 class TestDBHandler(unittest.TestCase):
     def test_Database_is_created(self):

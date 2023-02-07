@@ -1,5 +1,6 @@
+''' Serpapi api module for googleSearch'''
+
 from serpapi import GoogleSearch
-import json
 
 params = {
     "api_key": "8452f12ed3998f8207bbd3063f25e8517b5231966f4fa2fa71e64b3ddf9be75d",
@@ -18,4 +19,4 @@ print(type(jobs_results))
 print(jobs_results)
 
 for job in jobs_results:
-  print(job)
+    print(job)

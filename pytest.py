@@ -1,6 +1,9 @@
-import unittest
+import pytest
 
 
-def sum_of_two_numbers(self):
-        number = 2+2
-        self.assertEqual(number, 4, True)
+def test_func_fast():
+    pass
+
+@pytest.mark.slow
+def test_func_slow():
+    pass

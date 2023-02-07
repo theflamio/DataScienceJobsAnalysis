@@ -31,9 +31,9 @@ jobs:
         if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
     - name: Test with pytest
       run: |
-        pwd
+        cd /home/runner/work/DataScienceJobsAnalysis
         pytest tests.py --doctest-modules --junitxml=junit/test-results.xml --cov=com --cov-report=xml --cov-report=html
     - name: Analysing the code with pylint
       run: |
-        pwd
+        cd /home/runner/work/DataScienceJobsAnalysis
         pylint $(git ls-files '*.py')

@@ -3,7 +3,7 @@
 from serpapi import GoogleSearch
 
 params = {
-    "api_key": "8452f12ed3998f8207bbd3063f25e8517b5231966f4fa2fa71e64b3ddf9be75d",
+    "api_key": "dummy",
     "device": "desktop",
     "engine": "google_jobs",
     "google_domain": "google.com",
